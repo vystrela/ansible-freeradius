@@ -1,0 +1,6 @@
+---
+# handlers file for vystrela.freeradius
+- name: restart freeradius
+  service:
+    name: freeradius
+    state: restarted

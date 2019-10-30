@@ -1,0 +1,5 @@
+---
+# tasks file for vystrela.freeradius
+- import_tasks: install.yml
+- import_tasks: clients.yml
+- import_tasks: modsconfig.yml

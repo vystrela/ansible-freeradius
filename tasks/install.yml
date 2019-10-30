@@ -1,0 +1,16 @@
+---
+- name: install freeradius
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - freeradius
+    - freeradius-utils
+
+
+- name: enable freeradius
+  service:
+    name: freeradius
+    enabled: yes
+

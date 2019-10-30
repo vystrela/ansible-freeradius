@@ -1,0 +1,6 @@
+---
+# defaults file for vystrela.freeradius
+
+freeradius_version: '3.0'
+freeradius_clients_default_password: default
+

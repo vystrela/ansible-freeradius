@@ -1,0 +1,30 @@
+{% for client in freeradius_clients %}
+
+client {{ client.name }} {
+    {% if ":" in client.ipaddr %} # Handle freeradius v3.0.16 in latest ubuntu LTS http://lists.freeradius.org/pipermail/freeradius-users/2018-February/090650.html
+    ipv6addr = {{ client.ipaddr }}
+    {% else %}
+    ipaddr = {{ client.ipaddr }}
+    {% endif %}
+    proto = {{ client.proto | default("udp") }}
+    secret = {{ client.secret }}
+    require_message_authenticator = {{ client.require_message_authenticator | default("no")}}
+
+    {% if client.shortname is defined %}
+    shortname = {{ client.shortname }}
+    {% endif %}
+
+    {% if client.nas_type is defined %}
+    nas_type = {{ client.nas_type }}
+    {% endif %}
+
+    {% if client.proto is defined and (client.proto == "tcp" or client.proto == "*") %}
+    limit {
+        max_connections = {{ client.max_connections|default(16)}}
+        lifetime = {{ client.lifetime }}
+        idle_timeout = {{ client.idle_timeout }}
+    }
+    {% endif %}
+}
+
+{% endfor %}

@@ -1,0 +1,9 @@
+---
+- name: mods-config
+  template:
+    src: "{{ item.path }}"
+    dest: "/etc/freeradius/{{ freeradius_version }}/mods-config/{{ item.path }}"
+  with_filetree:
+    - mods-config/
+  notify:
+    restart freeradius
